@@ -1,0 +1,17 @@
+*.aux*
+*.bbl*
+*.blg
+*.d
+*.dvi
+*.ent
+*.fdb_latexmk
+*.fls
+*.log
+*.make
+*.nav
+*.snm
+*.out*
+*.pdf*
+*.run*
+*.synctex*
+*.toc
