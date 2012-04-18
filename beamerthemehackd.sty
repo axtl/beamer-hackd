@@ -1,0 +1,167 @@
+%
+% Copyright (c) 2011
+% Manuel Vonthron - <manuel DOT vonthron AT acadis DOT org>
+%
+% This file may be distributed and/or modified under the terms of
+% the Do What The Fuck You Want To Public License, Version 2
+% https://github.com/gliss/beamer-hackd.git
+
+\ProvidesPackage{beamerthemehackd}[2011/04/20]
+\RequirePackage{tikz}
+\RequirePackage{calc}
+
+\RequirePackage[scriptsize,it]{caption}
+\captionsetup{labelformat=empty,labelsep=none}
+
+\mode<presentation>
+
+%%% variables and options
+\def\beamer@hackd@value@true{true}
+\def\beamer@hackd@value@false{false}
+\def\beamer@hackd@value@empty{}
+
+\def\beamer@hackd@url{}
+\def\beamer@hackd@numbering{}
+\def\beamer@hackd@titlepagelayout{}
+
+\newlength{\beamer@hackd@menuwidth}
+\newlength{\beamer@hackd@restofmenuwidth}
+
+\setlength{\beamer@hackd@menuwidth}{.3\paperwidth}
+
+% \DeclareOptionBeamer{url}[{www.hackd.net}]{\def\beamer@hackd@url{#1}}
+\DeclareOptionBeamer{numbering}[true]{\def\beamer@hackd@numbering{#1}}
+\DeclareOptionBeamer{titlepagelayout}[]{\def\beamer@hackd@titlepagelayout{#1}}
+\DeclareOptionBeamer{menuwidth}[]{\setlength{\beamer@hackd@menuwidth}{#1}}
+
+\ProcessOptionsBeamer
+
+\setlength{\beamer@hackd@restofmenuwidth}{0.95\paperwidth}
+\addtolength\beamer@hackd@restofmenuwidth{-\beamer@hackd@menuwidth}
+
+
+
+\useinnertheme{circles}
+\useoutertheme{miniframes}
+
+\usecolortheme{hackd}
+
+\setbeamertemplate{navigation symbols}{}
+
+% TITLE PAGE
+\defbeamertemplate*{title page}{titlepage}
+{
+  \thispagestyle{empty}
+
+%  \begin{picture}(0,0)(0,0)
+%    \put(-29,-171){\includegraphics[width=1.01\paperwidth]{images/layout-1.pdf}}
+%  \end{picture}
+
+  \begin{picture}(0,0)(0,0)
+    \put(10,30){
+      \begin{minipage}{0.90\linewidth}
+      \centering{\LARGE\bfseries\sffamily\color{hackdblack} \inserttitle\par}
+      %\centering{\large\color{hackdlightgrey} \insertsubtitle\par}
+      \end{minipage}
+    }
+  \end{picture}
+  \begin{picture}(0,0)(0,0)
+    \put(10,0){
+      \begin{minipage}{0.90\linewidth}
+      \centering{\large\color{hackdlightgrey} \insertsubtitle\par}
+      \end{minipage}
+    }
+  \end{picture}
+  \begin{picture}(0,0)(0,0)
+    \put(10,-95){
+      \begin{minipage}{0.90\linewidth}
+      \centering{\large\bfseries\sffamily\color{hackdblack} \insertauthor\par}
+      \end{minipage}
+    }
+  \end{picture}
+  \begin{picture}(0,0)(0,0)
+    \put(10,-125){
+      \begin{minipage}{0.90\linewidth}
+      \centering{\color{hackdlightgrey} \insertinstitute\par}
+      \end{minipage}
+    }
+  \end{picture}
+
+}
+
+% HEADER
+\defbeamertemplate*{headline}{hackd}%
+{
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=1em,sep=0.6em]{headerline title}
+    \hspace{0px}
+    \begin{minipage}{\beamer@hackd@menuwidth}
+      \begin{flushright}
+        \insertsectionnavigationhorizontal{\beamer@hackd@menuwidth}{}{}
+      \end{flushright}
+    \end{minipage}
+
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=\paperwidth,sep=1px]{headerline border}
+    \vspace{1px}
+  \end{beamercolorbox}
+}
+
+% FOOTER
+\defbeamertemplate*{footline}{hackd}
+{
+%\leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=1em,sep=0.2em]{footerline}
+    \insertshorttitle\;--\;\insertshortauthor \hfill %
+    \ifx\beamer@hackd@numbering\beamer@hackd@value@false\relax\else
+        \insertframenumber/\inserttotalframenumber\;--\; %
+    \fi
+
+  \end{beamercolorbox}
+}
+
+
+% SECTION LIST
+\usesectionheadtemplate
+{ %active
+  \color{hackdred} \insertsectionhead
+}
+{ %other
+  \color{hackdlightergrey} \insertsectionhead
+}
+
+% BACKGROUND IMAGE
+% \setbeamertemplate{background}{
+%  \ifnum\insertframenumber=1\else
+%  \parbox[r][\paperheight]{\paperwidth}{
+%    \vfill\hfill
+%    \includegraphics[width=80px]{images/hackd-watermark.pdf}
+%  }
+%  \fi
+% }
+
+
+\defbeamertemplate*{frametitle}{}
+{
+  \begin{beamercolorbox}[sep=0ex,ht= 2.5ex, wd=\paperwidth]{}
+    \hspace{2ex}\insertframetitle{} \hspace{1ex}\hrulefill %
+  \end{beamercolorbox}%
+}
+
+%
+\newcommand{\sectionframe}[1]
+{
+    \begin{beamercolorbox}[wd=\textwidth]{footerline}
+        \begin{minipage}{\textwidth}
+          \vspace{1em}
+          \centering\Large{\color{white}{#1}}
+          \vspace{1em}
+        \end{minipage}%
+    \end{beamercolorbox}%
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0ex,ht=2pt, wd=\textwidth]{headerline border}
+    \end{beamercolorbox}%
+}
+%\mode<handout>
+
+\mode
+<all>
